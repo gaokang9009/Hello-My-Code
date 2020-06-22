@@ -1,15 +1,15 @@
-#! /usr/bin/env python
+#! /usr/bin/ python
 # -*- coding:utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2018 <guokunkun@dvt.dvt.com>
+# Copyright © 2018 <gaokangkang@dvt.dvt.com>
 #
 
 import configparser
 from pymongo import MongoClient
 
 
-class database:
+class database(object):
     def __init__(self, user, passwd):
         # databaseIp = self.getConfig('database','ip')
         # databasePort = self.getConfig('database','port')
@@ -39,17 +39,11 @@ class database:
 
         # python 默认连接超时时间是30秒，避免无法连接服务器时被卡住，设置为1200ms
         client = MongoClient(databaseIp, port, serverSelectionTimeoutMS=1200)
-        # print client
-
         # 获取数据库version
         db = client.version
-        # print  db
-
-        # 认证
-        # ret = db.authenticate(user, passwd)
         try:
-            ret = db.authenticate(user, passwd)
-        except:
+            ret = db.authenticate(user, passwd)   # 认证
+        except Exception as e:
             print("Mongod authenticate exception!")
             self.authRes = False
             print("self.authRes is %s" % self.authRes)
